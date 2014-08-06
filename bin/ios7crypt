@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'ios7crypt'
+
+begin
+  main
+rescue Interrupt
+  nil
+end
