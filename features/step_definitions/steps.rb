@@ -3,9 +3,9 @@ Given(/^"([^"]*)"$/) do |command|
 end
 
 Then(/^the output is like "([^"]*)"$/) do |text|
-  /#{text}/.match(@cucumber).should_not == nil
+  expect(@cucumber).to match(/#{text}/)
 end
 
 Then(/^the output is "([^"]*)"$/) do |text|
-  @cucumber.include?(text).should == true
+  expect(@cucumber).to include(text)
 end
