@@ -2,5 +2,5 @@
 # IOS7Crypt
 #
 module IOS7Crypt
-  VERSION = '0.1'
+  VERSION = '0.2'
 end
