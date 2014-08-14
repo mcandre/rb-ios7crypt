@@ -9,8 +9,7 @@ task :install => [:gem] do
 end
 
 task :test => [:clean, :install] do
-  sh 'ios7crypt -e monkey'
-  sh 'ios7crypt -d 12140a19190e15'
+  sh 'cucumber'
 end
 
 task :publish => [:clean, :gem] do
