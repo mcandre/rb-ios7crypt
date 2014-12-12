@@ -1,14 +1,20 @@
-# ios7crypt.rb
+# rb-ios7crypt - Cisco IOS7 router password encryptor/decryptor.
 
-Cisco IOS7 router password encryptor/decryptor.
+# EXAMPLE
 
-# Install
+```
+$ ios7crypt -e monkey
+104306170e120b
+$ ios7crypt -d 104306170e120b
+monkey
+```
 
-    $ gem install ios7crypt
+# REQUIREMENTS
 
-# Example
+* [Ruby](https://www.ruby-lang.org/) 1.9+
 
-    $ ios7crypt -e monkey
-    104306170e120b
-    $ ios7crypt -d 104306170e120b
-    monkey
+# INSTALL
+
+```
+$ gem install ios7crypt
+```
