@@ -1,4 +1,4 @@
-# rb-ios7crypt - Cisco IOS7 router password encryptor/decryptor.
+# rb-ios7crypt - Cisco IOS7 router password encryptor/decryptor
 
 # EXAMPLE
 
