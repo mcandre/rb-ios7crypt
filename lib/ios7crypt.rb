@@ -7,11 +7,10 @@
 #
 # ios7crypt: encrypts and decrypts passwords with Cisco IOS7 algorithm
 
+require_relative 'version'
+
 def usage
   puts "#{$PROGRAM_NAME} [OPTIONS]
-
---help, -h:
-    show help
 
 --encrypt, -e <password>
     prints out the encrypted password as a hash
@@ -20,9 +19,15 @@ def usage
     prints out the decrypted hash as a password
 
 --test, -t
-    runs unit tests"
+    runs unit tests
 
-  exit
+--help, -h:
+    show help
+
+--version, -v:
+    show version"
+
+  exit 0
 end
 
 require 'rubygems'
@@ -95,6 +100,7 @@ def main
 
   opts = GetoptLong.new(
     ['--help', '-h', GetoptLong::NO_ARGUMENT],
+    ['--version', '-v', GetoptLong::NO_ARGUMENT],
     ['--encrypt', '-e', GetoptLong::REQUIRED_ARGUMENT],
     ['--decrypt', '-d', GetoptLong::REQUIRED_ARGUMENT],
     ['--test', '-t', GetoptLong::NO_ARGUMENT]
@@ -112,6 +118,9 @@ def main
       hash = value
     when '--test'
       mode = :test
+    when '--version'
+      puts "ios7crypt #{IOS7Crypt::VERSION}"
+      exit 0
     else
       usage
     end

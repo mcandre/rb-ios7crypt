@@ -6,3 +6,6 @@ Feature: CLI
 
     Given "ios7crypt -d 082c4340021c1c"
     Then the output is "monkey"
+
+    Given "ios7crypt -v"
+    Then the output is "ios7crypt"
