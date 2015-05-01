@@ -9,33 +9,26 @@
 
 require_relative 'version'
 
-def usage
-  puts "#{$PROGRAM_NAME} [OPTIONS]
-
---encrypt, -e <password>
-    prints out the encrypted password as a hash
-
---decrypt, -d <hash>
-    prints out the decrypted hash as a password
-
---test, -t
-    runs unit tests
-
---help, -h:
-    show help
-
---version, -v:
-    show version"
-
-  exit 0
-end
-
 require 'rubygems'
 require 'rubycheck'
 require 'getoptlong'
 
 require 'contracts'
 include Contracts
+
+require 'docopt'
+
+USAGE = <<DOCOPT
+Usage:
+  ios7crypt [options]
+
+Options:
+  -e --encrypt <password>  Encrypt a password
+  -d --decrypt <hash>      Decrypt a hash
+  -t --test                Run self-test
+  -v --version             Print version info
+  -h --help                Print usage info
+DOCOPT
 
 #
 # IOS7Crypt
@@ -93,50 +86,20 @@ def self.test
 end
 
 def main
-  mode = :usage
+  begin
+    options = Docopt::docopt(USAGE, version: IOS7Crypt::VERSION)
 
-  password = ''
-  hash = ''
-
-  opts = GetoptLong.new(
-    ['--help', '-h', GetoptLong::NO_ARGUMENT],
-    ['--version', '-v', GetoptLong::NO_ARGUMENT],
-    ['--encrypt', '-e', GetoptLong::REQUIRED_ARGUMENT],
-    ['--decrypt', '-d', GetoptLong::REQUIRED_ARGUMENT],
-    ['--test', '-t', GetoptLong::NO_ARGUMENT]
-  )
-
-  opts.each do |option, value|
-    case option
-    when '--help'
-      usage
-    when '--encrypt'
-      mode = :encrypt
-      password = value
-    when '--decrypt'
-      mode = :decrypt
-      hash = value
-    when '--test'
-      mode = :test
-    when '--version'
-      puts "ios7crypt #{IOS7Crypt::VERSION}"
-      exit 0
+    if options['--encrypt']
+      puts options['--encrypt'].encrypt
+    elsif options['--decrypt']
+      puts options['--decrypt'].decrypt
+    elsif options['--test']
+      test
     else
-      usage
+      puts USAGE
     end
-  end
-
-  case mode
-  when :usage
-    usage
-  when :encrypt
-    puts password.encrypt
-  when :decrypt
-    puts hash.decrypt
-  when :test
-    test
-  else
-    usage
+  rescue Docopt::Exit => e
+    puts e.message
   end
 end
 

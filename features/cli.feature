@@ -8,4 +8,7 @@ Feature: CLI
     Then the output is "monkey"
 
     Given "ios7crypt -v"
-    Then the output is "ios7crypt"
+    Then the output is like "[0-9\\.]+"
+
+    Given "ios7crypt"
+    Then the output is like "Usage"
