@@ -3,7 +3,7 @@ require 'rubygems'
 require 'ios7crypt'
 
 begin
-  main
+  IOS7Crypt::main
 rescue Interrupt
   nil
 end

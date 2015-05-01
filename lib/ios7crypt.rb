@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-#
 # Author:: Andrew Pennebaker
 # Copyright:: Copyright 2007 - 2013 Andrew Pennebaker
 #
@@ -8,27 +6,12 @@
 # ios7crypt: encrypts and decrypts passwords with Cisco IOS7 algorithm
 
 require_relative 'version'
+require_relative 'cli'
 
-require 'rubygems'
 require 'rubycheck'
-require 'getoptlong'
 
 require 'contracts'
 include Contracts
-
-require 'docopt'
-
-USAGE = <<DOCOPT
-Usage:
-  ios7crypt [options]
-
-Options:
-  -e --encrypt <password>  Encrypt a password
-  -d --decrypt <hash>      Decrypt a hash
-  -t --test                Run self-test
-  -v --version             Print version info
-  -h --help                Print usage info
-DOCOPT
 
 #
 # IOS7Crypt
@@ -43,6 +26,11 @@ module IOS7Crypt
     0x39, 0x38, 0x37, 0x33, 0x32, 0x35, 0x34, 0x6b,
     0x3b, 0x66, 0x67, 0x38, 0x37
   ].freeze
+
+  def self.test
+    prop_reversible = -> s { s == s.encrypt.decrypt }
+    RubyCheck.for_all(prop_reversible, [:gen_str])
+  end
 end
 
 #
@@ -77,36 +65,5 @@ class String
     end
 
     decrypted.map { |e| e.chr }.join('')
-  end
-end
-
-def self.test
-  prop_reversible = -> s { s == s.encrypt.decrypt }
-  RubyCheck.for_all(prop_reversible, [:gen_str])
-end
-
-def main
-  begin
-    options = Docopt::docopt(USAGE, version: IOS7Crypt::VERSION)
-
-    if options['--encrypt']
-      puts options['--encrypt'].encrypt
-    elsif options['--decrypt']
-      puts options['--decrypt'].decrypt
-    elsif options['--test']
-      test
-    else
-      puts USAGE
-    end
-  rescue Docopt::Exit => e
-    puts e.message
-  end
-end
-
-if $PROGRAM_NAME == __FILE__
-  begin
-    main
-  rescue Interrupt
-    nil
   end
 end
