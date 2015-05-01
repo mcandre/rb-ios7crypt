@@ -7,7 +7,6 @@ Gem::Specification.new { |s|
   s.license = 'FreeBSD'
 
   s.version = IOS7Crypt::VERSION
-  s.date = '2014-08-06'
 
   s.authors = ['Andrew Pennebaker']
   s.email = 'andrew.pennebaker@gmail.com'
