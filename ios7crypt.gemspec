@@ -16,7 +16,7 @@ Gem::Specification.new { |s|
   s.files = Dir['lib/*.rb'] + ['LICENSE.md']
   s.homepage = 'https://github.com/mcandre/rb-ios7crypt'
 
-  s.required_ruby_version = '>= 1.9'
+  s.required_ruby_version = '>= 2.0'
 
   s.add_dependency 'docopt', '~> 0.5'
   s.add_dependency 'contracts', '0.4'
