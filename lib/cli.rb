@@ -18,11 +18,13 @@ module IOS7Crypt
     def self.main
         begin
             options = Docopt::docopt(USAGE, version: IOS7Crypt::VERSION)
+            password = options['--encrypt']
+            hash = options['--decrypt']
 
-            if options['--encrypt']
-                puts options['--encrypt'].encrypt
-            elsif options['--decrypt']
-                puts options['--decrypt'].decrypt
+            if password
+                puts password.encrypt
+            elsif hash
+                puts hash.decrypt
             elsif options['--test']
                 IOS7Crypt::test
             else
